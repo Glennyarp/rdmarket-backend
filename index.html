@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RDMARKET - Tienda Oficial</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Bienvenidos a RDMARKET</h1>
+    <div id="contenedor-productos">Cargando...</div>
+
+    <script>
+        fetch('http://localhost:3000/productos')
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('contenedor-productos');
+                container.innerHTML = ''; // Limpiamos el texto
+                data.forEach(p => {
+                    container.innerHTML += `<div><h3>${p.nombre}</h3><p>Precio: RD$ ${p.precio}</p></div>`;
+                });
+            })
+            .catch(err => console.error("Error:", err));
+    </script>
+</body>
+</html>
