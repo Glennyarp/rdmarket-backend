@@ -1,41 +1,34 @@
+// Asegúrate de que las variables de entorno se carguen
+require('dotenv').config(); 
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+
 const app = express();
-
 app.use(cors());
-app.use(express.json()); // ¡Es vital que esta línea esté aquí!
+app.use(express.json());
 
+// CONFIGURACIÓN QUE FUNCIONARÁ EN LA NUBE Y EN LOCAL
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '1234',
-    database: 'rd_emarket'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT || 3306
 });
 
 db.connect((err) => {
-    if (err) throw err;
-    console.log('Conectado a MySQL');
+    if (err) {
+        console.error('Error al conectar: ' + err.stack);
+        return;
+    }
+    console.log('¡Conectado a la base de datos!');
 });
 
-// RUTA PARA LEER (GET)
-app.get('/productos', (req, res) => {
-    db.query("SELECT * FROM productos", (err, data) => {
-        if (err) return res.status(500).json(err);
-        return res.json(data);
-    });
-});
+// ... tus rutas (GET /productos y POST /agregar-producto) ...
 
-// RUTA PARA AGREGAR (POST) - ¡ASEGÚRATE DE QUE ESTO ESTÉ EN TU ARCHIVO!
-app.post('/agregar-producto', (req, res) => {
-    const { nombre, descripcion, precio, stock } = req.body;
-    const sql = "INSERT INTO productos (nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?)";
-    db.query(sql, [nombre, descripcion, precio, stock], (err, result) => {
-        if (err) return res.status(500).json(err);
-        return res.json({ message: "Producto guardado con éxito" });
-    });
-});
-
-app.listen(3000, () => {
-    console.log("Servidor corriendo en http://localhost:3000");
+// ESTA PARTE ES CRÍTICA:
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo en puerto ${PORT}`);
 });
