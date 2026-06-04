@@ -31,13 +31,31 @@ db.connect((err) => {
 });
 
 // =========================================================================
-// 6. AQUÍ VAN TUS RUTAS (GET /productos, POST /agregar, etc.)
+// 6. SECCIÓN DE RUTAS
 // =========================================================================
 
+// Ruta raíz para verificar que el backend responda en internet
 app.get('/', (req, res) => {
     res.send('El backend de RDMARKET está funcionando correctamente.');
 });
 
+// NUEVA RUTA: Recibe los datos de admin.html y los guarda en la base de datos
+app.post('/productos', (req, res) => {
+    const { nombre, descripcion, precio, stock } = req.body;
+
+    // Consulta SQL para insertar los datos en tu tabla productos
+    const query = 'INSERT INTO productos (nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?)';
+    
+    db.query(query, [nombre, descripcion, precio, stock], (err, result) => {
+        if (err) {
+            console.error('Error al insertar producto:', err.message);
+            return res.status(500).json({ message: 'Hubo un error al guardar el producto en la base de datos.' });
+        }
+        
+        // Respuesta exitosa que activará el alert() en tu frontend
+        res.status(201).json({ message: '¡Producto guardado exitosamente en RDMARKET!' });
+    });
+});
 
 // =========================================================================
 // 7. INICIO DEL SERVIDOR (Configuración crítica para el binding de Railway)

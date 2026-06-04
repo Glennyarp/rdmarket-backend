@@ -29,11 +29,12 @@
                 stock: document.getElementById('stock').value
             };
 
-            fetch('http://localhost:3000/agregar-producto', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
+            // CORRECCIÓN: Agregamos https:// al inicio y el endpoint /productos al final
+    fetch('https://rdmarket-backend-production.up.railway.app/productos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
             .then(res => res.json())
             .then(result => {
                 alert(result.message);
