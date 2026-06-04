@@ -1,32 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Mi Sistema de Tienda</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- Agrega esto en el <head> o antes de cerrar el </body> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    <div class="admin-layout">
-        <form id="form-nuevo-producto" class="seccion-formulario">
-            <h3>Agregar Nuevo Producto</h3>
-            <div class="campo-grupo"><label>Nombre</label><input type="text" id="input-nombre" required></div>
-            <div class="campo-grupo"><label>Precio</label><input type="number" id="input-precio" required></div>
-            <div class="campo-grupo"><label>Descripción</label><textarea id="input-descripcion" required></textarea></div>
-            <div class="campo-grupo"><label>Stock</label><input type="number" id="input-stock" required></div>
-            <div class="campo-grupo"><label>Imagen</label><input type="file" id="input-imagen" accept="image/*" required></div>
-            <button type="submit" class="btn-pagar">Guardar Producto</button>
-        </form>
+<!-- Tu modal de compra -->
+<div id="modal-carrito">
+    <div id="contenedor-carrito"></div>
+    <div class="campo-grupo">
+        <label>Email para la factura:</label>
+        <input type="email" id="input-email-cliente" placeholder="tu@correo.com">
     </div>
-
-    <div class="contenedor-principal">
-        <section class="seccion-productos">
-            <h2>Nuestros Productos</h2>
-            <div class="productos-grid" id="contenedor-tienda"></div>
-        </section>
-    </div>
-
-    <script src="admin.js"></script>
-    <script src="tienda.js"></script>
-</body>
-</html>
+    <button onclick="finalizarCompra()">Finalizar Pedido</button>
+</div>
