@@ -1,92 +1,31 @@
+// Variable global compartida (puedes usar localStorage para persistencia)
+let productos = JSON.parse(localStorage.getItem('productos')) || [];
 
-// Validar de inmediato si el usuario pasó por la pantalla de login
-if (sessionStorage.getItem('adminAutenticado') !== 'true') {
-    window.location.href = "login.html";
-}
+document.getElementById('form-nuevo-producto').addEventListener('submit', function(e) {
+    e.preventDefault();
 
+    const archivo = document.getElementById('input-imagen').files[0];
+    const reader = new FileReader();
 
-const API_URL = 'https://rdmarket-backend-production.up.railway.app/api/productos';
+    reader.onload = function(event) {
+        const nuevoProducto = {
+            id: Date.now(),
+            nombre: document.getElementById('input-nombre').value,
+            precio: parseFloat(document.getElementById('input-precio').value),
+            descripcion: document.getElementById('input-descripcion').value,
+            stock: parseInt(document.getElementById('input-stock').value),
+            imagen: event.target.result // Base64
+        };
 
-let inventario = [];
-
-async function obtenerInventario() {
-    const tbody = document.getElementById('tabla-cuerpo-productos');
-    if (!tbody) return;
-
-    try {
-        const res = await fetch(API_URL);
-        inventario = await res.json();
-        renderizarTabla();
-    } catch (err) {
-        console.error(err);
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">Error de conexión con Railway</td></tr>`;
-    }
-}
-
-function renderizarTabla() {
-    const tbody = document.getElementById('tabla-cuerpo-productos');
-    tbody.innerHTML = '';
-
-    if (inventario.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No hay productos registrados.</td></tr>`;
-        return;
-    }
-
-    inventario.forEach(prod => {
-        const tr = document.createElement('tr');
-        const stockClase = prod.stock <= 5 ? 'stock-bajo' : 'stock-alto';
-
-        tr.innerHTML = `
-            <td>#${prod.id}</td>
-            <td>
-                <strong style="text-transform:capitalize;">${prod.nombre}</strong><br>
-                <small style="color:#718096;">${prod.descripcion || 'Sin descripción'}</small>
-            </td>
-            <td>RD$ ${Number(prod.precio).toLocaleString()}</td>
-            <td><span class="badge-stock ${stockClase}">${prod.stock} u.</span></td>
-            <td>
-                <button class="btn-tabla-eliminar" onclick="eliminarProducto(${prod.id})">🗑️ Borrar</button>
-            </td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-async function guardarProducto(event) {
-    event.preventDefault();
-
-    const nuevoProd = {
-        nombre: document.getElementById('prod-nombre').value,
-        descripcion: document.getElementById('prod-descripcion').value,
-        precio: parseFloat(document.getElementById('prod-precio').value),
-        stock: parseInt(document.getElementById('prod-stock').value)
+        productos.push(nuevoProducto);
+        localStorage.setItem('productos', JSON.stringify(productos));
+        
+        alert('Producto agregado');
+        this.reset();
+        
+        // Refrescar la tienda si existe la función
+        if (typeof cargarTienda === 'function') cargarTienda();
     };
 
-    try {
-        const res = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(nuevoProd)
-        });
-
-        if (res.ok) {
-            document.getElementById('form-agregar-producto').reset();
-            obtenerInventario();
-        }
-    } catch (err) {
-        alert('Error al guardar.');
-    }
-}
-
-async function eliminarProducto(id) {
-    if (!confirm('¿Deseas eliminar este artículo?')) return;
-
-    try {
-        const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        if (res.ok) obtenerInventario();
-    } catch (err) {
-        alert('Error al eliminar.');
-    }
-}
-
-document.addEventListener('DOMContentLoaded', obtenerInventario);
+    if (archivo) reader.readAsDataURL(archivo);
+});
