@@ -2,46 +2,75 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - RDMARKET</title>
+    <title>RDMARKET - Panel de Administración</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body { font-family: sans-serif; padding: 20px; }
-        input { display: block; margin: 10px 0; padding: 8px; width: 300px; }
+        .admin-layout { display: flex; gap: 30px; max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .seccion-formulario, .seccion-inventario { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .seccion-formulario { flex: 1; }
+        .seccion-inventario { flex: 2; }
+        .tabla-inventario { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .tabla-inventario th, .tabla-inventario td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .tabla-inventario th { background-color: #f7fafc; color: #4a5568; font-weight: 600; }
+        .btn-tabla-eliminar { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .badge-stock { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .stock-alto { background: #e6fffa; color: #234e52; }
+        .stock-bajo { background: #fff5f5; color: #742a2a; }
     </style>
 </head>
 <body>
-    <h2>Panel de Administración</h2>
-    <form id="form-producto">
-        <input type="text" id="nombre" placeholder="Nombre del producto" required>
-        <input type="text" id="descripcion" placeholder="Descripción">
-        <input type="number" id="precio" placeholder="Precio" required>
-        <input type="number" id="stock" placeholder="Stock" required>
-        <button type="submit">Guardar Producto</button>
-    </form>
 
-    <script>
-        document.getElementById('form-producto').addEventListener('submit', (e) => {
-            e.preventDefault();
+    <header class="tienda-header">
+       <button onclick="sessionStorage.removeItem('adminAutenticado'); window.location.href='index.html';" class="carrito-icono-resumen" style="background:#e74c3c; border-color:#c0392b;">🔒 Cerrar Sesión</button>
+        <a href="index.html" style="text-decoration: none;" class="carrito-icono-resumen">🌐 Ver Tienda</a>
+    </header>
+
+    <main class="admin-layout">
+        <section class="seccion-formulario">
+            <h2>Agregar Producto</h2>
+            <p style="color: #718096; font-size: 0.9rem; margin-bottom: 20px;">Inserta un nuevo artículo al catálogo general.</p>
             
-            const data = {
-                nombre: document.getElementById('nombre').value,
-                descripcion: document.getElementById('descripcion').value,
-                precio: document.getElementById('precio').value,
-                stock: document.getElementById('stock').value
-            };
+            <form id="form-agregar-producto" onsubmit="guardarProducto(event)">
+                <div class="campo-grupo">
+                    <label for="prod-nombre">Nombre del Producto:</label>
+                    <input type="text" id="prod-nombre" required placeholder="Ej. Cargador Tipo C">
+                </div>
+                <div class="campo-grupo">
+                    <label for="prod-descripcion">Descripción breve:</label>
+                    <textarea id="prod-descripcion" required placeholder="Ej. Cargador usb tipo c con carga rápida"></textarea>
+                </div>
+                <div class="campo-grupo">
+                    <label for="prod-precio">Precio (RD$):</label>
+                    <input type="number" id="prod-precio" required min="1" placeholder="Ej. 150">
+                </div>
+                <div class="campo-grupo">
+                    <label for="prod-stock">Stock Inicial:</label>
+                    <input type="number" id="prod-stock" required min="0" placeholder="Ej. 100">
+                </div>
+                <button type="submit" class="btn-pagar" style="width: 100%; margin-top: 15px;">💾 Guardar en Base de Datos</button>
+            </form>
+        </section>
 
-            // CORRECCIÓN: Agregamos https:// al inicio y el endpoint /productos al final
-    fetch('https://rdmarket-backend-production.up.railway.app/productos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-            .then(res => res.json())
-            .then(result => {
-                alert(result.message);
-                document.getElementById('form-producto').reset(); // Limpia el formulario
-            })
-            .catch(err => console.error("Error al guardar:", err));
-        });
-    </script>
+        <section class="seccion-inventario">
+            <h2>Inventario en Tiempo Real</h2>
+            <p style="color: #718096; font-size: 0.9rem;">Lista de artículos sincronizados directamente con Railway.</p>
+            <table class="tabla-inventario">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-cuerpo-productos">
+                    <tr><td colspan="5" style="text-align: center; color: #a0aec0;">Cargando inventario...</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
 </body>
 </html>
