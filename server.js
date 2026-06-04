@@ -13,7 +13,6 @@ app.use(express.json());
 
 // 4. CONFIGURACIÓN HÍBRIDA DE LA BASE DE DATOS (MySQL)
 // Busca primero las variables nativas de Railway; si no existen, usa las de tu .env local.
-// CONFIGURACIÓN ULTRA-SEGURA DE CONEXIÓN
 const db = mysql.createConnection({
     host: process.env.DB_HOST || process.env.MYSQLHOST,
     user: process.env.DB_USER || process.env.MYSQLUSER,
@@ -40,7 +39,7 @@ app.get('/', (req, res) => {
     res.send('El backend de RDMARKET está funcionando correctamente.');
 });
 
-// NUEVA RUTA: Recibe los datos de admin.html y los guarda en la base de datos
+// RUTA POST: Recibe los datos de admin.html y los guarda en la base de datos
 app.post('/productos', (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
 
@@ -49,12 +48,27 @@ app.post('/productos', (req, res) => {
     
     db.query(query, [nombre, descripcion, precio, stock], (err, result) => {
         if (err) {
-            console.error('Error al insertar producto:', err.message);
+            console.error('❌ Error al insertar producto:', err.message);
             return res.status(500).json({ message: 'Hubo un error al guardar el producto en la base de datos.' });
         }
         
         // Respuesta exitosa que activará el alert() en tu frontend
         res.status(201).json({ message: '¡Producto guardado exitosamente en RDMARKET!' });
+    });
+});
+
+// NUEVA RUTA GET: Consulta la base de datos y devuelve todos los productos para index.html
+app.get('/api/productos', (req, res) => {
+    const query = 'SELECT * FROM productos';
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('❌ Error al obtener productos:', err.message);
+            return res.status(500).json({ message: 'Hubo un error al consultar los productos de la base de datos.' });
+        }
+
+        // Devuelve la lista completa de productos en formato JSON
+        res.status(200).json(results);
     });
 });
 
