@@ -1,16 +1,15 @@
 :root {
     --color-fondo: #f8fafc;
     --color-tarjeta: #ffffff;
-    --color-encabezado: #0f172a; /* Azul noche profundo, muy premium */
-    --color-primario: #6366f1;   /* Índigo moderno para destacar elementos */
+    --color-encabezado: #0f172a;
+    --color-primario: #6366f1;
     --color-primario-hover: #4f46e5;
-    --color-exito: #10b981;     /* Verde esmeralda para incentivar la compra */
+    --color-exito: #10b981;
     --color-exito-hover: #059669;
-    --color-peligro: #ef4444;    /* Rojo vibrante */
-    --color-peligro-hover: #dc2626;
+    --color-peligro: #ef4444;
     --color-texto-principal: #1e293b;
     --color-texto-secundario: #64748b;
-    --borde-radio: 16px;         /* Bordes más redondeados y modernos */
+    --borde-radio: 16px;
     --sombra-suave: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
 }
 
@@ -18,7 +17,7 @@
     margin: 0; 
     padding: 0; 
     box-sizing: border-box; 
-    transition: all 0.25s ease; /* Hace que los botones y efectos cambien suavemente */
+    transition: all 0.25s ease; 
 }
 
 body {
@@ -28,7 +27,6 @@ body {
     line-height: 1.5;
 }
 
-/* ENCABEZADO ESTILO APPLE / STRIPE */
 .tienda-header {
     background-color: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(8px);
@@ -61,6 +59,7 @@ body {
     font-weight: 600;
     font-size: 0.9rem;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .carrito-icono-resumen:hover {
@@ -68,7 +67,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* DISEÑO DE LA REJILLA PRINCIPAL */
 .contenedor-principal {
     display: grid;
     grid-template-columns: 1fr 380px;
@@ -88,10 +86,8 @@ body {
     letter-spacing: -0.5px;
     margin-bottom: 25px;
     color: var(--color-encabezado);
-    position: relative;
 }
 
-/* TARJETAS DE PRODUCTO TOTALMENTE RENOVADAS */
 .productos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -117,6 +113,39 @@ body {
     border-color: rgba(99, 102, 241, 0.2);
 }
 
+/* CONTENEDOR DE IMÁGENES DEL CLIENTE */
+.producto-imagen-contenedor {
+    width: 100%;
+    height: 190px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #f1f5f9;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Animación sutil de zoom en la imagen al hacer hover en la tarjeta */
+.producto-tarjeta:hover .producto-imagen {
+    transform: scale(1.04);
+}
+
+/* Agregado flex-grow al info para empujar los botones simétricamente */
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 .producto-info h3 {
     font-size: 1.25rem;
     font-weight: 700;
@@ -129,6 +158,7 @@ body {
     font-size: 0.95rem;
     margin-bottom: 20px;
     min-height: 45px;
+    flex-grow: 1;
 }
 
 .producto-meta {
@@ -164,6 +194,7 @@ body {
     cursor: pointer;
     margin-top: 20px;
     box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+    width: 100%;
 }
 
 .btn-agregar-carrito:hover {
@@ -171,7 +202,6 @@ body {
     box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
 }
 
-/* SECCIÓN DEL CARRITO LATERAL */
 .seccion-carrito { 
     background: var(--color-tarjeta); 
     border-radius: var(--borde-radio); 
@@ -261,16 +291,57 @@ body {
 .btn-pagar:hover { 
     background-color: var(--color-exito-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
 }
 
-/* CAPA MODAL ESTILO MODERN BLUR */
+/* LAYOUT PANEL ADMINISTRATIVO */
+.admin-layout {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+.seccion-formulario, .seccion-inventario {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--sombra-suave);
+}
+.seccion-formulario { flex: 1; }
+.seccion-inventario { flex: 2; }
+
+.tabla-inventario {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+.tabla-inventario th, .tabla-inventario td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+.tabla-inventario th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+}
+.btn-tabla-eliminar {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* VENTANA MODAL BLUR */
 .modal-fondo {
     display: none; 
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(8px); /* Desenfoque de fondo ultra moderno */
+    backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -295,8 +366,6 @@ body {
     color: var(--color-texto-secundario);
 }
 
-.modal-cerrar:hover { color: var(--color-texto-principal); }
-
 .campo-grupo { margin-bottom: 20px; }
 .campo-grupo label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--color-encabezado); }
 .campo-grupo input, .campo-grupo textarea { 
@@ -305,31 +374,16 @@ body {
     border: 1px solid #cbd5e1; 
     border-radius: 10px; 
     font-family: inherit;
-    color: var(--color-texto-principal);
-}
-
-.campo-grupo input:focus, .campo-grupo textarea:focus {
-    outline: none;
-    border-color: var(--color-primario);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 .resumen-caja { background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; margin: 20px 0; }
 .btn-enviar-wa { 
-    background: #25d366; /* Color oficial WhatsApp */
+    background: #25d366; 
     color: white; 
     border: none; 
     padding: 16px; 
     border-radius: 12px; 
     width: 100%; 
     font-weight: 700; 
-    font-size: 1rem;
     cursor: pointer; 
-    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.2);
-}
-
-.btn-enviar-wa:hover {
-    background: #20ba59;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(32, 186, 89, 0.3);
 }

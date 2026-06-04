@@ -10,19 +10,20 @@
         .seccion-formulario { flex: 1; }
         .seccion-inventario { flex: 2; }
         .tabla-inventario { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .tabla-inventario th, .tabla-inventario td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .tabla-inventario th, .tabla-inventario td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
         .tabla-inventario th { background-color: #f7fafc; color: #4a5568; font-weight: 600; }
         .btn-tabla-eliminar { background: #e74c3c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .badge-stock { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
         .stock-alto { background: #e6fffa; color: #234e52; }
         .stock-bajo { background: #fff5f5; color: #742a2a; }
+        .mini-imagen-tabla { width: 45px; height: 45px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
 
     <header class="tienda-header">
-       <button onclick="sessionStorage.removeItem('adminAutenticado'); window.location.href='index.html';" class="carrito-icono-resumen" style="background:#e74c3c; border-color:#c0392b;">🔒 Cerrar Sesión</button>
-        <a href="index.html" style="text-decoration: none;" class="carrito-icono-resumen">🌐 Ver Tienda</a>
+        <h1>RDMARKET - Panel de Control</h1>
+        <button onclick="sessionStorage.removeItem('adminAutenticado'); window.location.href='index.html';" class="carrito-icono-resumen" style="background:#e74c3c; border-color:#c0392b;">🔒 Cerrar Sesión</button>
     </header>
 
     <main class="admin-layout">
@@ -38,6 +39,11 @@
                 <div class="campo-grupo">
                     <label for="prod-descripcion">Descripción breve:</label>
                     <textarea id="prod-descripcion" required placeholder="Ej. Cargador usb tipo c con carga rápida"></textarea>
+                </div>
+                <div class="campo-grupo">
+                    <label for="prod-imagen">URL de la Imagen:</label>
+                    <input type="url" id="prod-imagen" placeholder="Ej. https://enlace.com/imagen.jpg">
+                    <small style="color: #a0aec0; display:block; margin-top:4px;">Copia el enlace de cualquier imagen de internet.</small>
                 </div>
                 <div class="campo-grupo">
                     <label for="prod-precio">Precio (RD$):</label>
@@ -57,7 +63,7 @@
             <table class="tabla-inventario">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Imagen</th>
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Stock</th>
