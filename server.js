@@ -41,12 +41,15 @@ app.get('/', (req, res) => {
 
 // RUTA POST: Recibe los datos de admin.html y los guarda en la base de datos
 app.post('/productos', (req, res) => {
-    const { nombre, descripcion, precio, stock } = req.body;
+    const { nombre, text, precio, stock } = req.body; // Adaptado según la estructura recibida de tu formulario
+
+    // Mapeo flexible por si tu formulario envía "descripcion" o "text"
+    const descripcionFinal = text || req.body.descripcion;
 
     // Consulta SQL para insertar los datos en tu tabla productos
     const query = 'INSERT INTO productos (nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?)';
     
-    db.query(query, [nombre, descripcion, precio, stock], (err, result) => {
+    db.query(query, [nombre, descripcionFinal, precio, stock], (err, result) => {
         if (err) {
             console.error('❌ Error al insertar producto:', err.message);
             return res.status(500).json({ message: 'Hubo un error al guardar el producto en la base de datos.' });
@@ -57,7 +60,7 @@ app.post('/productos', (req, res) => {
     });
 });
 
-// NUEVA RUTA GET: Consulta la base de datos y devuelve todos los productos para index.html
+// RUTA GET: Consulta la base de datos y devuelve todos los productos para index.html
 app.get('/api/productos', (req, res) => {
     const query = 'SELECT * FROM productos';
 
