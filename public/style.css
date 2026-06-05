@@ -5,15 +5,14 @@ body { font-family: sans-serif; margin: 0; background-color: #f5f5f5; }
     padding: 10px 50px; background-color: #fff; border-bottom: 1px solid #ddd;
 }
 
-/* Ajustes específicos para el logo */
 .logo-container { display: flex; align-items: center; }
+
 .logo-img {
-    height: 40px;      /* Altura fija para que no desborde */
-    width: auto;
-    object-fit: contain; /* Recorta el espacio sobrante internamente */
-    margin-right: 10px;
+    height: 60px;        /* Tamaño optimizado para visibilidad */
+    width: auto;         /* Mantiene la relación de aspecto */
+    object-fit: contain; /* Evita deformaciones */
+    display: block;
 }
-.logo-text { font-size: 22px; font-weight: bold; color: #ff4747; }
 
 .search-bar { display: flex; width: 35%; }
 .search-bar input { width: 100%; padding: 8px; border: 2px solid #ff4747; border-radius: 20px 0 0 20px; outline: none; }
