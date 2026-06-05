@@ -9,9 +9,23 @@ body { margin: 0; font-family: Arial, sans-serif; }
 }
 
 .header-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 15px; }
+/* Contenedor del Logo */
+.logo-container { 
+    display: flex; 
+    align-items: center; 
+    margin-left: 20px; /* Esto moverá el logo a la derecha */
+}
+
+/* Logo */
+.logo-img { 
+    height: 115px; 
+    width: auto; 
+    object-fit: contain;
+    background: transparent; 
+}
 
 /* Logo más grande */
-.logo-img { height: 95px; width: auto; object-fit: contain; }
+
 
 /* Buscador más largo */
 .search-container { 
