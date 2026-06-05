@@ -1,40 +1,16 @@
-/* Limpieza inicial */
 body { margin: 0; font-family: sans-serif; }
 
-/* Barra de navegación */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 40px;
-    background-color: #fff;
-    border-bottom: 2px solid #eee;
-    height: 100px; /* Altura fija para la nav */
-}
+.main-header { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 40px; }
 
-/* Logo configurado para verse bien y no romper el diseño */
-.logo-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
+/* Fila Superior */
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 
-.logo-img {
-    height: 80px; /* Tamaño ideal para visibilidad */
-    width: auto;
-    object-fit: contain;
-}
+.logo-img { height: 60px; }
 
-/* Buscador centrado */
-.search-bar input {
-    padding: 10px;
-    width: 300px;
-}
+.search-container { flex-grow: 1; margin: 0 40px; display: flex; }
+.search-container input { width: 100%; padding: 10px; border: 2px solid #ff4747; }
 
-/* Links a la derecha */
-.nav-links a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
+/* Fila Inferior */
+.header-bottom { display: flex; align-items: center; gap: 20px; font-weight: bold; }
+.categories-menu { background-color: #f5f5f5; padding: 10px; border-radius: 5px; cursor: pointer; }
+.header-bottom a { text-decoration: none; color: #333; }
