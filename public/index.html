@@ -6,24 +6,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav class="navbar">
-        <div class="logo">RDMARKET</div>
+        <div class="logo-container">
+            <img src="logo.png" alt="RDMARKET" class="logo-img">
+            <span class="logo-text">RDMARKET</span>
+        </div>
+        
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar productos...">
+            <input type="text" placeholder="Buscar productos...">
             <button>🔍</button>
         </div>
+
         <div class="nav-links">
-            <a href="#">SuperOfertas</a>
+            <a href="#">Ofertas</a>
             <a href="#">Categorías</a>
             <a href="#">Mi Cuenta</a>
-            <a href="#">🛒 Cesta (0)</a>
+            <a href="#">🛒 Cesta</a>
         </div>
     </nav>
 
-    <main id="productos-container">
+    <main>
         <h1>Productos Disponibles</h1>
-        <div id="lista-productos"></div>
+        <div id="lista-productos" class="grid-productos"></div>
     </main>
 
     <script src="tienda.js"></script>
