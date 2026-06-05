@@ -1,27 +1,40 @@
-/* Esto fuerza al navegador a usar este tamaño ignorando cualquier otra regla */
-.logo-img {
-    height: 120px !important;
-    width: auto !important;
-    display: block !important;
-    object-fit: contain !important;
+/* Limpieza inicial */
+body { margin: 0; font-family: sans-serif; }
+
+/* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background-color: #fff;
+    border-bottom: 2px solid #eee;
+    height: 100px; /* Altura fija para la nav */
 }
 
-/* Aseguramos que el contenedor no limite la imagen */
+/* Logo configurado para verse bien y no romper el diseño */
 .logo-container {
-    height: 120px !important;
+    height: 100%;
     display: flex;
     align-items: center;
 }
-/* Forzar tamaño del logo para que sea legible */
+
 .logo-img {
-    height: 100px !important;
-    width: auto !important;
-    display: block !important;
-    object-fit: contain !important;
+    height: 80px; /* Tamaño ideal para visibilidad */
+    width: auto;
+    object-fit: contain;
 }
 
-.logo-container {
-    height: 100px !important;
-    display: flex;
-    align-items: center;
+/* Buscador centrado */
+.search-bar input {
+    padding: 10px;
+    width: 300px;
+}
+
+/* Links a la derecha */
+.nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
