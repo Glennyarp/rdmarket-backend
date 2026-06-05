@@ -19,7 +19,17 @@ body { margin: 0; font-family: Arial, sans-serif; }
     margin-bottom: 15px; 
 }
 
-.logo-img { height: 50px; }
+/* Ajuste del Logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img { 
+    height: 80px;        /* Tamaño grande y claro */
+    width: auto;         /* Mantiene la proporción */
+    object-fit: contain; /* Evita deformaciones */
+}
 
 /* Buscador */
 .search-container { 
