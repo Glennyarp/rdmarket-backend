@@ -1,16 +1,54 @@
 body { margin: 0; font-family: sans-serif; }
 
-.main-header { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 40px; }
+.main-header { 
+    background-color: #fff; 
+    border-bottom: 1px solid #ddd; 
+    padding: 15px 40px; 
+}
 
-/* Fila Superior */
-.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+/* Fila Superior: Logo, Buscador y Links a la misma altura */
+.header-top { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px;
+    margin-bottom: 15px; 
+}
 
-.logo-img { height: 60px; }
+.logo-img { height: 50px; }
 
-.search-container { flex-grow: 1; margin: 0 40px; display: flex; }
-.search-container input { width: 100%; padding: 10px; border: 2px solid #ff4747; }
+/* El buscador ocupa el espacio central flexible */
+.search-container { 
+    flex-grow: 1; 
+    display: flex; 
+    max-width: 600px;
+    border: 2px solid #333; 
+    border-radius: 25px;
+    overflow: hidden;
+}
 
-/* Fila Inferior */
-.header-bottom { display: flex; align-items: center; gap: 20px; font-weight: bold; }
-.categories-menu { background-color: #f5f5f5; padding: 10px; border-radius: 5px; cursor: pointer; }
+.search-container input { 
+    width: 100%; 
+    padding: 10px 20px; 
+    border: none; 
+}
+
+.user-actions { display: flex; gap: 15px; white-space: nowrap; }
+
+/* Fila Inferior: Categorías */
+.header-bottom { 
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+    font-weight: bold; 
+    padding-top: 10px;
+}
+
+.categories-menu { 
+    background-color: #f5f5f5; 
+    padding: 8px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
 .header-bottom a { text-decoration: none; color: #333; }
