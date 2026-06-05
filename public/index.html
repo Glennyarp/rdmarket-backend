@@ -1,12 +1,31 @@
-<!-- Agrega esto en el <head> o antes de cerrar el </body> -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RDMARKET - Tienda Online</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- Tu modal de compra -->
-<div id="modal-carrito">
-    <div id="contenedor-carrito"></div>
-    <div class="campo-grupo">
-        <label>Email para la factura:</label>
-        <input type="email" id="input-email-cliente" placeholder="tu@correo.com">
-    </div>
-    <button onclick="finalizarCompra()">Finalizar Pedido</button>
-</div>
+    <nav class="navbar">
+        <div class="logo">RDMARKET</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar productos...">
+            <button>🔍</button>
+        </div>
+        <div class="nav-links">
+            <a href="#">SuperOfertas</a>
+            <a href="#">Categorías</a>
+            <a href="#">Mi Cuenta</a>
+            <a href="#">🛒 Cesta (0)</a>
+        </div>
+    </nav>
+
+    <main id="productos-container">
+        <h1>Productos Disponibles</h1>
+        <div id="lista-productos"></div>
+    </main>
+
+    <script src="tienda.js"></script>
+</body>
+</html>
