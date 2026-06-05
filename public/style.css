@@ -1,23 +1,27 @@
-body { margin: 0; font-family: sans-serif; }
+/* Limpieza básica */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; }
 
+/* Header Principal */
 .main-header { 
     background-color: #fff; 
     border-bottom: 1px solid #ddd; 
     padding: 15px 40px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Fila Superior: Logo, Buscador y Links a la misma altura */
+/* Fila Superior: Distribución */
 .header-top { 
     display: flex; 
     align-items: center; 
     justify-content: space-between; 
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 15px; 
 }
 
 .logo-img { height: 50px; }
 
-/* El buscador ocupa el espacio central flexible */
+/* Buscador centrado */
 .search-container { 
     flex-grow: 1; 
     display: flex; 
@@ -31,11 +35,31 @@ body { margin: 0; font-family: sans-serif; }
     width: 100%; 
     padding: 10px 20px; 
     border: none; 
+    outline: none;
 }
 
-.user-actions { display: flex; gap: 15px; white-space: nowrap; }
+.search-container button {
+    border: none;
+    background: #333;
+    color: white;
+    padding: 0 20px;
+    cursor: pointer;
+}
 
-/* Fila Inferior: Categorías */
+/* Botón de App y enlaces */
+.user-actions { display: flex; align-items: center; gap: 20px; white-space: nowrap; }
+
+.app-download-link {
+    background-color: #ff4747;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* Fila Inferior (Categorías) */
 .header-bottom { 
     display: flex; 
     align-items: center; 
