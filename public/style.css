@@ -36,8 +36,14 @@ body { margin: 0; font-family: Arial, sans-serif; }
 .search-container input { width: 100%; padding: 12px 20px; border: none; outline: none; }
 .search-container button { border: none; background: #333; color: white; padding: 0 20px; cursor: pointer; }
 
-/* Acciones de usuario */
-.user-actions { display: flex; align-items: center; gap: 20px; white-space: nowrap; }
+/* Acciones de usuario - Desplazadas a la izquierda y más separadas */
+.user-actions { 
+    display: flex; 
+    align-items: center; 
+    gap: 40px;          /* Separación mayor */
+    margin-right: 50px; /* Desplazamiento a la izquierda */
+    white-space: nowrap; 
+}
 
 .app-download-link {
     background-color: #ff4747;
