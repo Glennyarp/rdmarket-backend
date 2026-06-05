@@ -1,6 +1,8 @@
+/* Limpieza básica */
 * { box-sizing: border-box; }
 body { margin: 0; font-family: Arial, sans-serif; }
 
+/* Header con degradado bandera dominicana pálida */
 .main-header { 
     background: linear-gradient(90deg, #d1e7ff 0%, #ffffff 50%, #ffd1d1 100%);
     border-bottom: 2px solid #ddd; 
@@ -8,51 +10,84 @@ body { margin: 0; font-family: Arial, sans-serif; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.header-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 15px; }
-/* Contenedor del Logo */
+/* Fila Superior: Distribución */
+.header-top { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 20px;
+    margin-bottom: 15px; 
+}
+
+/* Logo: Más grande y más desplazado hacia la derecha */
 .logo-container { 
     display: flex; 
     align-items: center; 
-    margin-left: 20px; /* Esto moverá el logo a la derecha */
+    margin-left: 60px; 
 }
 
-/* Logo */
 .logo-img { 
-    height: 115px; 
+    height: 130px; 
     width: auto; 
     object-fit: contain;
     background: transparent; 
 }
 
-/* Logo más grande */
-
-
-/* Buscador más largo */
+/* Buscador: Centrado y más largo */
 .search-container { 
     flex-grow: 1; 
     display: flex; 
-    max-width: 900px; /* Extendido para mayor longitud */
+    max-width: 900px; 
     border: 2px solid #333; 
     border-radius: 25px;
     overflow: hidden;
-    margin: 0 20px; /* Margen a ambos lados */
+    margin: 0 20px; 
 }
 
 .search-container input { width: 100%; padding: 12px 20px; border: none; outline: none; }
 .search-container button { border: none; background: #333; color: white; padding: 0 20px; cursor: pointer; }
 
-/* Acciones */
-.user-actions { display: flex; align-items: center; gap: 40px; white-space: nowrap; }
+/* Acciones: Más cerca del buscador */
+.user-actions { 
+    display: flex; 
+    align-items: center; 
+    gap: 40px; 
+    margin-right: 20px; 
+    white-space: nowrap; 
+}
 
-.app-download-link { background-color: #ff4747; color: white !important; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 0.9em; }
+.app-download-link {
+    background-color: #ff4747;
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
 .user-login { display: flex; flex-direction: column; line-height: 1.2; }
 .hello-text { font-size: 0.75em; color: #555; }
 .auth-link { text-decoration: none; color: #333; font-weight: bold; font-size: 0.9em; }
 
 /* Carrito con icono grande y texto tamaño original */
-.cart-link { text-decoration: none; color: #333; font-weight: bold; font-size: 1.5em; } /* Icono grande */
-.cart-text { font-size: 0.6em; vertical-align: middle; } /* Texto tamaño original */
+.cart-link { text-decoration: none; color: #333; font-weight: bold; font-size: 1.5em; }
+.cart-text { font-size: 0.6em; vertical-align: middle; }
 
-.header-bottom { display: flex; align-items: center; gap: 25px; font-weight: bold; padding-top: 10px; }
-.categories-menu { background-color: rgba(255, 255, 255, 0.7); padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+/* Fila Inferior (Categorías) */
+.header-bottom { 
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+    font-weight: bold; 
+    padding-top: 10px;
+}
+
+.categories-menu { 
+    background-color: rgba(255, 255, 255, 0.7); 
+    padding: 8px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
 .header-bottom a { text-decoration: none; color: #333; }
