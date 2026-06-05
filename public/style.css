@@ -1,23 +1,27 @@
-body { font-family: sans-serif; margin: 0; background-color: #f5f5f5; }
-
-.navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 50px; background-color: #fff; border-bottom: 1px solid #ddd;
-}
-
-.logo-container { display: flex; align-items: center; }
-
+/* Esto fuerza al navegador a usar este tamaño ignorando cualquier otra regla */
 .logo-img {
-    height: 60px;        /* Tamaño optimizado para visibilidad */
-    width: auto;         /* Mantiene la relación de aspecto */
-    object-fit: contain; /* Evita deformaciones */
-    display: block;
+    height: 120px !important;
+    width: auto !important;
+    display: block !important;
+    object-fit: contain !important;
 }
 
-.search-bar { display: flex; width: 35%; }
-.search-bar input { width: 100%; padding: 8px; border: 2px solid #ff4747; border-radius: 20px 0 0 20px; outline: none; }
-.search-bar button { padding: 8px 15px; background-color: #ff4747; border: none; color: white; border-radius: 0 20px 20px 0; cursor: pointer; }
+/* Aseguramos que el contenedor no limite la imagen */
+.logo-container {
+    height: 120px !important;
+    display: flex;
+    align-items: center;
+}
+/* Forzar tamaño del logo para que sea legible */
+.logo-img {
+    height: 100px !important;
+    width: auto !important;
+    display: block !important;
+    object-fit: contain !important;
+}
 
-.nav-links a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 500; }
-.grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; padding: 20px 50px; }
-.producto-card { background: white; padding: 15px; border-radius: 8px; border: 1px solid #ddd; text-align: center; }
+.logo-container {
+    height: 100px !important;
+    display: flex;
+    align-items: center;
+}
