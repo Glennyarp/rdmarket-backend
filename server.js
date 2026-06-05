@@ -1,18 +1,22 @@
-// 1. CARGA DE VARIABLES DE ENTORNO (Esencial para leer el archivo .env en desarrollo local)
+// 1. CARGA DE VARIABLES DE ENTORNO
 require('dotenv').config();
 
 // 2. IMPORTACIÓN DE MÓDULOS
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+const path = require('path'); // Módulo necesario para manejar rutas de archivos
 
 // 3. INICIALIZACIÓN DE LA APP Y MIDDLEWARES
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 3.5. SERVIR ARCHIVOS ESTÁTICOS
+// Esto le dice a Express que busque tus archivos HTML, CSS y JS en la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
 // 4. CONFIGURACIÓN HÍBRIDA DE LA BASE DE DATOS (MySQL)
-// Busca primero las variables nativas de Railway; si no existen, usa las de tu .env local.
 const db = mysql.createConnection({
     host: process.env.DB_HOST || process.env.MYSQLHOST,
     user: process.env.DB_USER || process.env.MYSQLUSER,
@@ -34,50 +38,42 @@ db.connect((err) => {
 // 6. SECCIÓN DE RUTAS
 // =========================================================================
 
-// Ruta raíz para verificar que el backend responda en internet
+// Ruta raíz: Sirve tu archivo index.html automáticamente
 app.get('/', (req, res) => {
-    res.send('El backend de RDMARKET está funcionando correctamente.');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// RUTA POST: Recibe los datos de admin.html y los guarda en la base de datos
+// RUTA POST: Guardar productos
 app.post('/productos', (req, res) => {
-    const { nombre, text, precio, stock } = req.body; // Adaptado según la estructura recibida de tu formulario
-
-    // Mapeo flexible por si tu formulario envía "descripcion" o "text"
+    const { nombre, text, precio, stock } = req.body;
     const descripcionFinal = text || req.body.descripcion;
 
-    // Consulta SQL para insertar los datos en tu tabla productos
     const query = 'INSERT INTO productos (nombre, descripcion, precio, stock) VALUES (?, ?, ?, ?)';
     
     db.query(query, [nombre, descripcionFinal, precio, stock], (err, result) => {
         if (err) {
             console.error('❌ Error al insertar producto:', err.message);
-            return res.status(500).json({ message: 'Hubo un error al guardar el producto en la base de datos.' });
+            return res.status(500).json({ message: 'Hubo un error al guardar el producto.' });
         }
-        
-        // Respuesta exitosa que activará el alert() en tu frontend
         res.status(201).json({ message: '¡Producto guardado exitosamente en RDMARKET!' });
     });
 });
 
-// RUTA GET: Consulta la base de datos y devuelve todos los productos para index.html
+// RUTA GET: Obtener productos
 app.get('/api/productos', (req, res) => {
     const query = 'SELECT * FROM productos';
 
     db.query(query, (err, results) => {
         if (err) {
             console.error('❌ Error al obtener productos:', err.message);
-            return res.status(500).json({ message: 'Hubo un error al consultar los productos de la base de datos.' });
+            return res.status(500).json({ message: 'Hubo un error al consultar la base de datos.' });
         }
-
-        // Devuelve la lista completa de productos en formato JSON
         res.status(200).json(results);
     });
 });
 
-// =========================================================================
-// 7. INICIO DEL SERVIDOR (Configuración crítica para el binding de Railway)
+// 7. INICIO DEL SERVIDOR
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Servidor corriendo y escuchando en el puerto ${PORT}`);
+    console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
 });
